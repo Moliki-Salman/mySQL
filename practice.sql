@@ -22,10 +22,13 @@ CONSTRAINT customer_check FOREIGN KEY (cus_id_fk) REFERENCES customers(cus_id)
 
 DESCRIBE orders
 
+select * FROM customers
+
 INSERT INTO customers(first_name, last_name, email, phone_no)
-VALUES ('Tbi', 'Bamidele', 'bams@gmail.com', '+2349087678'),
-('Oluwatosin', 'Bayode', 'tosin@gmail.com', '+2349077875'),
-('Oluchi', 'Joseph', 'oluchi@gmail.com', '+23490976437')
+VALUES ('Tbi00', 'Bamidele', 'bams@gmail.com', '+2349087'),
+('Oluwatosin', 'Bayode', 'tosin@gmail.com', '+2349077'),
+('Oluchi', 'Joseph', 'oluchi@gmail.com', '+23490976')
+
 
 CREATE TABLE `categories` (
   `category_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
