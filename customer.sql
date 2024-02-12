@@ -136,7 +136,7 @@ SELECT * from trans
 5) calculate outstanding
 6) save data in the TRANSACTION  table;
 
- --what is a stored procedure, a stored precedure is like alogic for processing data storage.
+ --what is a stored procedure, a stored precedure is like a logic for processing data storage.
 NOTE YOU CANNOT CREATE A  STORED PROCEDURE HERE IN THE STATEMENT,
 ITS NOT ALLOWED,WE NEED TO CREATE A NEW FILE, SO CHECK THE NAV BAR , YOU WILL SEE PROCEDURE, CREATE IT FROM THERE
 */

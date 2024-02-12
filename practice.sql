@@ -79,7 +79,7 @@ CREATE TABLE `orderDetails` (
 SELECT * FROM products
 
 
-SELECT * FROM orders
+SELECT * FROM orderDetails
 
 insert into orderDetails(order_id_fk, product_id_fk, quantity,  totalPrice)
 values( 1, 2, 4, 12000
@@ -88,5 +88,38 @@ values( 1, 2, 4, 12000
 SELECT * FROM customers INNER JOIN orders on customers.cus_id = orders.cus_id_fk
 
 
---Create a view that displays the details of a customer's order, including customer
---  information, order date, product details, quantity, and total price.
+/*Create a view that displays the details of a customer's order, including customer
+information, order date, product details, quantity, and total price*/
+
+create view cus_order_details AS
+SELECT customers.*, orders.*, products.product_Name, products.prices, orderDetails.quantity, orderDetails.totalPrice
+from customers INNER JOIN orders on customers.cus_id = orders.cus_id_fk
+INNER JOIN orderDetails on orders.order_id = orderDetails.order_id_fk
+INNER JOIN products on products.`product_id` = orderDetails.`product_id_fk` WHERE cus_id = 1;
+
+
+SELECT customers.*, orders.*, products.product_Name, products.prices, orderDetails.quantity, orderDetails.totalPrice
+from customers INNER JOIN orders on customers.cus_id = orders.cus_id_fk
+INNER JOIN orderDetails on orders.order_id = orderDetails.order_id_fk
+INNER JOIN products on products.`product_id` = orderDetails.`product_id_fk` WHERE cus_id = 1;
+
+-- create a procedure to calculate the total revenue generated for a specific product (quantity sold and product price)
+--to know the total quantity sold
+create view total_qauntity_sold AS
+SELECT product_Name, sum(quantity) as quantity_sold from orderDetails INNER JOIN products
+on orderDetails.product_id_fk = products.product_id GROUP BY product_id_fk
+
+select * from total_qauntity_sold
+
+create table revenue (
+revenue_id int primary key AUTO_INCREMENT,
+product_Name VARCHAR(300),
+product_Price DECIMAL,
+total_qauntity_sold DECIMAL,
+total_revenue DECIMAL,
+revenue_date DATETIME DEFAULT CURRENT_TIMESTAMP
+)
+
+alter table revenue  CHANGE product_Name product_id int
+
+DESCRIBE revenue
