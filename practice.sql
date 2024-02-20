@@ -7,12 +7,18 @@ cus_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 first_name  VARCHAR(40),
 last_name  VARCHAR(40),
 email VARCHAR(40),
-phone_no INT(16)
+phone_no INT (16)
 );
+
+
 
 DESCRIBE customers;
 
 select * from customers
+
+--this is used to delete columns from a table using the column name.
+delete from customers where first_name = ''
+
 
 CREATE TABLE orders (
   `order_id` INT PRIMARY KEY NOT NULL  AUTO_INCREMENT,
@@ -32,6 +38,8 @@ DESCRIBE orders
 select * from orders
 
 select * FROM customers
+
+delete from customers
 
 INSERT INTO customers(first_name, last_name, email, phone_no)
 VALUES ('Tbi00', 'Bamidele', 'bams@gmail.com', '+2349087'),
@@ -123,3 +131,38 @@ revenue_date DATETIME DEFAULT CURRENT_TIMESTAMP
 alter table revenue  CHANGE product_Name product_id int
 
 DESCRIBE revenue
+--sum up the quantity of a product and assign it to to the quantity-sold VARIABLES
+--get the price from product table for a given product and assign it to the product-price variable
+
+-- assign the result of quantity-sold * product-price to the total-amount variable
+-- insert the results to the revenue table
+
+-- display the content of the revenue table.
+
+
+-- create total_revenue procedure that take in 3 parameter (quantity sold, product price and product id)
+-- to calculate the total revenue
+
+CREATE PROCEDURE total_revenue (in prod_price DECIMAL, in qtn_sold DECIMAL, in prod_id INT)
+BEGIN
+DECLARE product_price DECIMAL;
+DECLARE quantity_sold DECIMAL;
+DECLARE total_amount DECIMAL;
+
+select sum(quantity) into quantity_sold from orderDetails WHERE orderDetails.product_id_fk = prod_id;
+
+select prices into product_price from products WHERE products.product_id = prod_price;
+
+set total_amount = quantity_sold * product_price;
+
+INSERT INTO revenue(product_id, product_Price, total_qauntity_sold, total_revenue  ) VALUES(
+prod_id, product_price, quantity_sold, total_amount
+);
+
+SELECT * FROM revenue;
+END;
+
+call total_revenue(1, 400, 2);
+
+SELECT * FROM revenue;
+
