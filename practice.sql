@@ -11,10 +11,12 @@ phone_no INT (16)
 );
 
 
-
 DESCRIBE customers;
 
 select * from customers
+
+--this disolays the first 4 rolls on the customers table.
+select* from customers  limit 4 OFFSET 3
 
 --this is used to delete columns from a table using the column name.
 delete from customers where first_name = ''
@@ -27,6 +29,9 @@ CREATE TABLE orders (
 --contraint is used to apply rules to a,table. it ensures accuracy of the data in the tables--
 CONSTRAINT customer_check FOREIGN KEY (cus_id_fk) REFERENCES customers(cus_id)
 );
+
+--to changethe columnsin a tabke
+alter table orders modify column order_id int  AUTO_INCREMENT
 
 insert into orders( cus_id_fk, order_date) VALUES(
 1, CURDATE()
